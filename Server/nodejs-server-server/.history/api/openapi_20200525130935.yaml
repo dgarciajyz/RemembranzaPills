@@ -1,0 +1,523 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dagarpez@hotmail.com
+    name: Remembranza pills
+  description: Esta API provee los servicios necesarios para gestionar la medicacion
+    de los pacientes sin comprometer la confidencialidad de los datos del mismo.
+  title: Remembranza pills
+  version: "1.1"
+servers:
+- url: /
+paths:
+  /user:
+    post:
+      description: Creacion de nuevos usuarios.
+      operationId: registroUsuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Registra un nuevo usuario
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+  /user/login:
+    get:
+      description: La sesion del usuario para iniciar sesion.
+      operationId: inicioSesionUsuarios
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Devuelve
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+  /user/logout:
+    get:
+      description: Cierra la sesion abierta por el usuario actual
+      operationId: logoutUsuario
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Cierre de sesion
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+  /appointment:
+    delete:
+      description: Elimina una cita
+      operationId: deleteAppointment
+      parameters:
+      - description: Id del usuario
+        explode: true
+        in: query
+        name: idUser
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Elimina una cita
+      tags:
+      - Cita
+      x-swagger-router-controller: Cita
+    get:
+      description: Devuelve todo lo relacionado con las citas médicas de un usuario
+      operationId: getAppointment
+      parameters:
+      - description: Id del usuario
+        explode: true
+        in: query
+        name: idUser
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Devuelve todo lo relacionado con las citas médicas de un usuario
+      tags:
+      - Cita
+      x-swagger-router-controller: Cita
+    post:
+      description: Registra una nueva cita del paciente
+      operationId: postAppointment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Registra una nueva cita del paciente
+      tags:
+      - Cita
+      x-swagger-router-controller: Cita
+    put:
+      description: Modifica una cita
+      operationId: putAppointment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Modifica una cita
+      tags:
+      - Cita
+      x-swagger-router-controller: Cita
+  /medicine:
+    delete:
+      description: Elimina la información de la medicina asociada a un usuario
+      operationId: deleteMedicine
+      parameters:
+      - description: Nombre de la medicina
+        explode: true
+        in: query
+        name: medtitle
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Id del usuario
+        explode: true
+        in: query
+        name: idUser
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form        
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Elimina la información de la medicina asociada a un usuario
+      tags:
+      - Medicina
+      x-swagger-router-controller: Medicina
+    get:
+      description: Devuelve las medicinas que tiene que recetadas un paciente
+      operationId: getMedicine
+      parameters:
+      - description: Id del usuario
+        explode: true
+        in: query
+        name: idUser
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Devuelve las medicinas que tiene que recetadas un paciente
+      tags:
+      - Medicina
+      x-swagger-router-controller: Medicina
+    post:
+      description: Registra una nueva medicina en el historial del paciente
+      operationId: postMedicine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Registra una nueva medicina en el historial del paciente
+      tags:
+      - Medicina
+      x-swagger-router-controller: Medicina
+    put:
+      description: Modifica la información de las medicinas del paciente
+      operationId: putMedicine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Modifica la información de las medicinas del paciente
+      tags:
+      - Medicina
+      x-swagger-router-controller: Medicina
+components:
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/User'
+            type: array
+      description: Successful operation
+    201:
+      content:
+        text/plain:
+          schema:
+            example: Created
+            title: Created
+            type: string
+      description: Created
+    404:
+      content:
+        text/plain:
+          schema:
+            example: Not found
+            title: Endpoint not found
+            type: string
+      description: Not found response
+    405:
+      content:
+        text/plain:
+          schema:
+            example: The format is not valid
+            title: Invalid input
+            type: string
+      description: Invalid input
+  schemas:
+    User:
+      example:
+        password: Admin
+        idUsuario: 1
+        username: Admin
+      properties:
+        idUsuario:
+          example: 1
+          format: int64
+          type: integer
+        username:
+          example: Admin
+          type: string
+        password:
+          example: Admin
+          type: string
+      type: object
+    Appointment:
+      example:
+        hour: 10:00
+        specialist: Surgeon
+        place: Hospital
+      properties:
+        place:
+          example: Hospital
+          type: string
+        hour:
+          example: 10:00
+          type: string
+        specialist:
+          example: Surgeon
+          type: string
+      type: object
+    Medicine:
+      example:
+        place: Title
+      properties:
+        place:
+          example: Title
+          type: string
+      type: object
