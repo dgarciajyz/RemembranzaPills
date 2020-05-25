@@ -1,0 +1,284 @@
+openapi: 3.0.1
+info:
+  title: Remembranza pills
+  description: >-
+    Esta API provee los servicios necesarios para gestionar la medicacion de los pacientes sin comprometer la confidencialidad de los datos del mismo.
+  version: '1.1'
+  termsOfService: ''
+  contact:
+    name: Remembranza pills
+    url: ''
+    email: dagarpez@hotmail.com
+paths:
+  /user:
+    post:
+      tags:
+        - Usuario
+      summary: Registra un nuevo usuario
+      description: Creacion de nuevos usuarios.
+      operationId: registroUsuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+  /user/login:
+    get:
+      tags:
+        - Usuario
+      summary: Devuelve
+      description: La sesion del usuario para iniciar sesion.
+      operationId: inicioSesionUsuarios
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+  /user/logout:
+    get:
+      tags:
+        - Usuario
+      summary: Cierre de sesion
+      description: Cierra la sesion abierta por el usuario actual
+      operationId: logoutUsuario
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+  /appointment:
+    get:
+      tags:
+        - Cita
+      summary: Devuelve todo lo relacionado con las citas médicas de un usuario
+      description: Devuelve todo lo relacionado con las citas médicas de un usuario
+      operationId: getAppointment
+      parameters:
+        - name: idUser
+          in: query
+          description: Id del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    post:
+      tags:
+        - Cita
+      summary: Registra una nueva cita del paciente
+      description: Registra una nueva cita del paciente
+      operationId: postAppointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    put:
+      tags:
+        - Cita
+      summary: Modifica una cita
+      description: Modifica una cita
+      operationId: putAppointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    delete:
+      tags:
+        - Cita
+      summary: Elimina una cita
+      description: Elimina una cita
+      operationId: deleteAppointment
+      parameters:
+        - name: idUser
+          in: query
+          description: Id del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'          
+  /medicine:
+    get:
+      tags:
+        - Medicina
+      summary: Devuelve las medicinas que tiene que recetadas un paciente
+      description: Devuelve las medicinas que tiene que recetadas un paciente
+      operationId: getMedicine
+      parameters:
+        - name: idUser
+          in: query
+          description: Id del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    post:
+      tags:
+        - Medicina
+      summary: Registra una nueva medicina en el historial del paciente
+      description: Registra una nueva medicina en el historial del paciente
+      operationId: postMedicine
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    put:
+      tags:
+        - Medicina
+      summary: Modifica la información de las medicinas del paciente
+      description: Modifica la información de las medicinas del paciente
+      operationId: putMedicine
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    delete:
+      tags:
+        - Medicina
+      summary: Elimina la información de la medicina asociada a un usuario
+      description: Elimina la información de la medicina asociada a un usuario
+      operationId: deleteMedicine
+      parameters:
+        - name: idMedicine
+          in: query
+          description: Id de la medicina
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'          
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        idUsuario:
+          type: integer
+          format: int64
+          example: 1
+        username:
+          type: string
+          example: Admin
+        password:
+          type: string
+          example: Admin
+    Appointment:
+      type: object
+      properties:
+        place:
+          type: string
+          example: Hospital
+        hour:
+          type: string
+          example: 10:00
+        specialist:
+          type: string
+          example: Surgeon
+    Medicine:
+      type: object
+      properties:
+        place:
+          type: string
+          example: Title
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    '201':
+      description: Created
+      content:
+        text/plain:
+          schema:
+            title: Created
+            type: string
+            example: Created
+    '404':
+      description: Not found response
+      content:
+        text/plain:
+          schema:
+            title: Endpoint not found
+            type: string
+            example: Not found
+    '405':
+      description: Invalid input
+      content:
+        text/plain:
+          schema:
+            title: Invalid input
+            type: string
+            example: The format is not valid
