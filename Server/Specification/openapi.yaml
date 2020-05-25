@@ -216,6 +216,91 @@ paths:
           $ref: '#/components/responses/404'
         '405':
           $ref: '#/components/responses/405'          
+  /recepie:
+    get:
+      tags:
+        - Recetas
+      summary: Devuelve las medicinas que tiene que recetadas un paciente
+      description: Devuelve las medicinas que tiene que recetadas un paciente
+      operationId: getRecepie
+      parameters:
+        - name: idUser
+          in: query
+          description: Id del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    post:
+      tags:
+        - Recetas
+      summary: Registra una nueva medicina en el historial del paciente
+      description: Registra una nueva medicina en el historial del paciente
+      operationId: postRecepie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recepie'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    put:
+      tags:
+        - Recetas
+      summary: Modifica la información de las recetas del paciente
+      description: Modifica la información de las recetas del paciente
+      operationId: putRecepie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recepie'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+    delete:
+      tags:
+        - Recetas
+      summary: Elimina la información de la receta asociada a un usuario
+      description: Elimina la información de la receta asociada a un usuario
+      operationId: deleteRecepie
+      parameters:
+        - name: medicine
+          in: query
+          description: Id de la medicina
+          required: true
+          schema:
+            type: string
+        - name: idUser
+          in: query
+          description: Id de la medicina
+          required: true
+          schema:
+            type: integer            
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
 components:
   schemas:
     User:
@@ -243,6 +328,24 @@ components:
         specialist:
           type: string
           example: Surgeon
+    Recepie:
+      type: object
+      properties:
+        fk_med:
+          type: string
+          example: ibuprofeno
+        fk_user:
+          type: integer
+          example: 288
+        custom:
+          type: string
+          example: Blue color pill          
+        day:
+          type: string
+          example: Monday          
+        hour:
+          type: string
+          example: Monday             
     Medicine:
       type: object
       properties:
