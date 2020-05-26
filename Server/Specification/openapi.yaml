@@ -10,13 +10,13 @@ info:
     url: ''
     email: dagarpez@hotmail.com
 paths:
-  /user:
+  /user/register:
     post:
       tags:
         - Usuario
       summary: Registra un nuevo usuario
       description: Creacion de nuevos usuarios.
-      operationId: registroUsuarios
+      operationId: registerUser
       requestBody:
         required: true
         content:
@@ -31,12 +31,12 @@ paths:
         '405':
           $ref: '#/components/responses/405'
   /user/login:
-    get:
+    post:
       tags:
         - Usuario
       summary: Devuelve
       description: La sesion del usuario para iniciar sesion.
-      operationId: inicioSesionUsuarios
+      operationId: loginUser
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -45,12 +45,12 @@ paths:
         '405':
           $ref: '#/components/responses/405'
   /user/logout:
-    get:
+    post:
       tags:
         - Usuario
       summary: Cierre de sesion
       description: Cierra la sesion abierta por el usuario actual
-      operationId: logoutUsuario
+      operationId: logoutUser
       responses:
         '201':
           $ref: '#/components/responses/201'
