@@ -37,6 +37,12 @@ paths:
       summary: Devuelve
       description: La sesion del usuario para iniciar sesion.
       operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'      
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -45,7 +51,7 @@ paths:
         '405':
           $ref: '#/components/responses/405'
   /user/logout:
-    post:
+    get:
       tags:
         - Usuario
       summary: Cierre de sesion
